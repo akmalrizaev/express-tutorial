@@ -1,21 +1,15 @@
 const express = require('express');
 const app = express();
-const logger = require('./logger');
-const authorize = require('./authorize');
+let { people } = require('./data');
 
-// req => middleware => res
+// HTTP Methods
+// GET - Read Data
+// POST - Insert Data
+// PUT - Update Data
+// DELETE - Delete Data
 
-app.use([logger, authorize]);
-
-// api/*
-// app.use('/api', logger)
-
-app.get('/', (req, res) => {
-  res.send('Home');
-});
-
-app.get('/about', (req, res) => {
-  res.send('About');
+app.get('/api/people', (req, res) => {
+  res.status(200).json({ success: true, data: people });
 });
 
 app.listen(5000, () => {
